@@ -38,7 +38,7 @@ int main() {
     std::vector<student> studentsVector;
     student temporary;
     std::string horizontalLine = "----------------------------------------------------------------------------------------------------";
-    int startingInput, count;
+    int startingInput, count, deleteSelection;
     bool idLengthIsNotTen = true;
     bool gpaValueIsNotValid = true;
     bool programIsRunning = true;
@@ -54,9 +54,9 @@ int main() {
         std::cin >> startingInput;
         std::cout << horizontalLine << std::endl;
         std::cout<<"Input: "<<startingInput<<std::endl;
-        std::cout << horizontalLine << std::endl;
         switch (startingInput) {
             case 1:
+                std::cout << horizontalLine << std::endl;
                 std::cout << "Enter the name of the student:\n";
                 std::getline(std::cin,temporary.name);
                 std::getline(std::cin,temporary.name);
@@ -82,17 +82,30 @@ int main() {
                 std::cout<<"Student data has been added to the database"<<std::endl;
                 break;
             case 2:
-                break;
-            case 3:
-                std::cout << horizontalLine << std::endl;
-                std::cout<<"List of students:\n";
                 count = 1;
+                std::cout << horizontalLine << std::endl;
+                std::cout << "Enter the student selection:\n";
                 for(student listOfStudentsIteration : studentsVector){
-                    std::cout<<count<<". "<<listOfStudentsIteration.name<<" / "
-                    <<listOfStudentsIteration.id<<" / "
-                    <<listOfStudentsIteration.gpa<<'\n';
+                    std::cout<<count<<". "<<listOfStudentsIteration.name<<'\n';
                     count++;
                 }
+                std::cin>>deleteSelection;
+                studentsVector.erase(studentsVector.begin() + deleteSelection-1);
+                std::cout << horizontalLine << std::endl;
+                std::cout<<"Student data has been deleted"<<std::endl;
+                break;
+            case 3:
+                std::cout << horizontalLine << std::endl;;
+                std::cout<<"How would you like to list the students?"<<std::endl;
+                std::cout<<"1. Sorted by name\n2. Sorted by ID\n3. Sorted by GPA"<<std::endl;
+                //std::cout<<"List of students:\n";
+                //count = 1;
+                //for(student listOfStudentsIteration : studentsVector){
+                //    std::cout<<count<<". "<<listOfStudentsIteration.name<<" / "
+                //    <<listOfStudentsIteration.id<<" / "
+                //    <<listOfStudentsIteration.gpa<<'\n';
+                //    count++;
+                //}
                 break;
             case 4:
                 break;
