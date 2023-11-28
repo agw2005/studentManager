@@ -14,6 +14,18 @@ void printArray(std::string theArray[]){
     }
 }
 
+std::string capitalize(std::string str) {
+    std::string result;
+    for (int i = 0; i < str.length(); i++) {
+        if (i == 0 || str[i - 1] == ' ') {
+            result += toupper(str[i]);
+        } else {
+            result += str[i];
+        }
+    }
+    return result;
+}
+
 int main() {
     std::string menu[6] = {
             "1. Add a student",
@@ -23,10 +35,10 @@ int main() {
             "5. Insert a grade",
             "6. Exit"
     };
-    std::vector<student> studentVector;
+    std::vector<student> studentsVector;
     student temporary;
-    std::string horizontalLine = "--------------------------------------------------";
-    int startingInput;
+    std::string horizontalLine = "----------------------------------------------------------------------------------------------------";
+    int startingInput, count;
     bool idLengthIsNotTen = true;
     bool gpaValueIsNotValid = true;
     bool programIsRunning = true;
@@ -34,15 +46,21 @@ int main() {
     std::cout << horizontalLine << std::endl;
     std::cout << "Good morning, welcome to the student data center" << std::endl;
     std::cout << "What would you like to do today?" << std::endl;
-    std::cout << horizontalLine << std::endl;
-    printArray(menu);
 
     while(programIsRunning) {
+        std::cout << horizontalLine << std::endl;
+        printArray(menu);
+        std::cout << horizontalLine << std::endl;
         std::cin >> startingInput;
+        std::cout << horizontalLine << std::endl;
+        std::cout<<"Input: "<<startingInput<<std::endl;
+        std::cout << horizontalLine << std::endl;
         switch (startingInput) {
             case 1:
                 std::cout << "Enter the name of the student:\n";
-                std::cin >> temporary.name;
+                std::getline(std::cin,temporary.name);
+                std::getline(std::cin,temporary.name);
+                temporary.name = capitalize(temporary.name);
                 while (idLengthIsNotTen) {
                     std::cout << "Enter the student ID:\n";
                     std::cin >> temporary.id;
@@ -59,11 +77,22 @@ int main() {
                     } else { gpaValueIsNotValid = false; }
                 }
                 gpaValueIsNotValid = true;
-                studentVector.push_back(temporary);
+                studentsVector.push_back(temporary);
+                std::cout << horizontalLine << std::endl;
+                std::cout<<"Student data has been added to the database"<<std::endl;
                 break;
             case 2:
                 break;
             case 3:
+                std::cout << horizontalLine << std::endl;
+                std::cout<<"List of students:\n";
+                count = 1;
+                for(student listOfStudentsIteration : studentsVector){
+                    std::cout<<count<<". "<<listOfStudentsIteration.name<<" / "
+                    <<listOfStudentsIteration.id<<" / "
+                    <<listOfStudentsIteration.gpa<<'\n';
+                    count++;
+                }
                 break;
             case 4:
                 break;
