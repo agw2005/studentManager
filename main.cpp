@@ -7,10 +7,9 @@ struct student{
     float gpa;
 };
 
-void printArray(std::string theArray[]){
-    int theArraySize = 6;
-    for(int i = 0; i < theArraySize ; i++){
-        std::cout<<theArray[i]<<'\n';
+void printVector(std::vector<std::string> theVector){
+    for(std::string i : theVector){
+        std::cout<<i<<'\n';
     }
 }
 
@@ -52,6 +51,44 @@ std::vector<student> sortVectorLowestIDValue(std::vector<student> theVector) {
     return theVector;
 }
 
+std::vector<student> sortVectorZToA(std::vector<student> theVector) {
+    for (int i = 0; i < theVector.size() - 1; i++) {
+        for (int ii = i + 1; ii < theVector.size(); ii++) {
+            if (theVector[i].name < theVector[ii].name) {
+                long long int tempID = theVector[i].id;
+                std::string tempName = theVector[i].name;
+                float tempGPA = theVector[i].gpa;
+                theVector[i].id = theVector[ii].id;
+                theVector[i].name = theVector[ii].name;
+                theVector[i].gpa = theVector[ii].gpa;
+                theVector[ii].id = tempID;
+                theVector[ii].name = tempName;
+                theVector[ii].gpa = tempGPA;
+            }
+        }
+    }
+    return theVector;
+}
+
+std::vector<student> sortVectorAToZ(std::vector<student> theVector) {
+    for (int i = 0; i < theVector.size() - 1; i++) {
+        for (int ii = i + 1; ii < theVector.size(); ii++) {
+            if (theVector[i].name > theVector[ii].name) {
+                long long int tempID = theVector[i].id;
+                std::string tempName = theVector[i].name;
+                float tempGPA = theVector[i].gpa;
+                theVector[i].id = theVector[ii].id;
+                theVector[i].name = theVector[ii].name;
+                theVector[i].gpa = theVector[ii].gpa;
+                theVector[ii].id = tempID;
+                theVector[ii].name = tempName;
+                theVector[ii].gpa = tempGPA;
+            }
+        }
+    }
+    return theVector;
+}
+
 std::string capitalize(std::string str) {
     std::string result;
     for (int i = 0; i < str.length(); i++) {
@@ -65,7 +102,7 @@ std::string capitalize(std::string str) {
 }
 
 int main() {
-    std::string menu[6] = {
+    std::vector<std::string> menu = {
             "1. Add a student",
             "2. Delete a student",
             "3. List students",
@@ -88,7 +125,7 @@ int main() {
 
     while(programIsRunning) {
         std::cout << horizontalLine << std::endl;
-        printArray(menu);
+        printVector(menu);
         std::cout << horizontalLine << std::endl;
         std::cin >> startingInput;
         std::cout << horizontalLine << std::endl;
@@ -145,8 +182,32 @@ int main() {
                 std::cin>>sortSelection;
                 switch(sortSelection){
                     case 1:
+                        std::cout << horizontalLine << std::endl;
+                        std::cout<<"Input: "<<sortSelection<<std::endl;
+                        std::cout << horizontalLine << std::endl;
+                        temporaryStudentsVector = sortVectorZToA(studentsVector);
+                        count = 1;
+                        for(student i : temporaryStudentsVector){
+                            std::cout<<count<<". "<<i.name<<" / "<<i.id<<" / "<<i.gpa<<'\n';
+                            count++;
+                        }
+                        std::cout << horizontalLine << std::endl;
+                        std::cout<<"Enter any value to return to menu\n";
+                        std::cin>>listIsRunning;
                         break;
                     case 2:
+                        std::cout << horizontalLine << std::endl;
+                        std::cout<<"Input: "<<sortSelection<<std::endl;
+                        std::cout << horizontalLine << std::endl;
+                        temporaryStudentsVector = sortVectorAToZ(studentsVector);
+                        count = 1;
+                        for(student i : temporaryStudentsVector){
+                            std::cout<<count<<". "<<i.name<<" / "<<i.id<<" / "<<i.gpa<<'\n';
+                            count++;
+                        }
+                        std::cout << horizontalLine << std::endl;
+                        std::cout<<"Enter any value to return to menu\n";
+                        std::cin>>listIsRunning;
                         break;
                     case 3:
                         std::cout << horizontalLine << std::endl;
