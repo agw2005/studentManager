@@ -220,10 +220,21 @@ int main() {
                     std::cout<<count<<". "<<listOfStudentsIteration.name<<'\n';
                     count++;
                 }
+                std::cout << "0. Cancel\n";
                 std::cin>>deleteSelection;
-                studentsVector.erase(studentsVector.begin() + deleteSelection-1);
-                horizontalLine();
-                std::cout<<"Student data has been deleted"<<std::endl;
+                if(deleteSelection != 0)
+                {
+                    outputTheInput(deleteSelection);
+                    studentsVector.erase(studentsVector.begin() + deleteSelection-1);
+                    std::cout<<"Student data has been deleted"<<std::endl;
+                    horizontalLine();
+                }
+                else
+                {
+                    outputTheInput(deleteSelection);
+                    std::cout<<"Student deletion has been cancelled"<<std::endl;
+                    horizontalLine();
+                }
                 break;
             case 3:
                 std::cout<<"How would you like to list the students?"<<std::endl;
