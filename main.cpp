@@ -162,6 +162,16 @@ void startingMenu(std::vector<std::string> theMenu){
     horizontalLine();
 }
 
+void printStringButWithBreaks(std::string theString){
+    for(int i = 0 ; i <= (int)size(theString) ; i+=50){
+        for(int ii = 0 ; ii < 50 && i+ii < (int)size(theString)  ; ii++){
+            std::cout<<theString[i+ii];
+        }
+        std::cout<<"";
+    }
+    std::cout<<'\n';
+}
+
 int main() {
     std::vector<std::string> menu = {
             "1. Add a student",
@@ -173,11 +183,16 @@ int main() {
     };
 
     std::vector<student> studentsVector,temporaryStudentsVector;
+    std::vector<std::string> taskDocumentVector;
     student temporary;
-    int startingInput, count, deleteSelection, sortSelection;
+    std::string taskTitle, taskDescription, taskDocument, taskDeadlinePhase;
+    int startingInput, count, deleteSelection, sortSelection, taskDeadline, taskDeadlinePhaseSelection, taskDocumentSelection, taskDocumentAmount;
     bool idLengthIsNotTen = true;
     bool gpaValueIsNotValid = true;
     bool programIsRunning = true;
+    bool taskDeadlinePhaseValid = true;
+    bool taskDeadlineValid = true;
+    bool taskDocumentSelectionValid = true;
 
     horizontalLine();
     std::cout << "Good morning, welcome to the student data center" << std::endl;
@@ -190,8 +205,8 @@ int main() {
         switch (startingInput) {
             case 1:
                 std::cout << "Enter the name of the student:\n";
-                std::getline(std::cin,temporary.name);
-                std::getline(std::cin,temporary.name);
+                std::getline(std::cin, temporary.name);
+                std::getline(std::cin, temporary.name);
                 temporary.name = capitalize(temporary.name);
                 while (idLengthIsNotTen) {
                     std::cout << "Enter the student ID:\n";
@@ -211,47 +226,42 @@ int main() {
                 gpaValueIsNotValid = true;
                 studentsVector.push_back(temporary);
                 horizontalLine();
-                std::cout<<"Student data has been added to the database"<<std::endl;
+                std::cout << "Student data has been added to the database" << std::endl;
                 break;
             case 2:
                 count = 1;
                 std::cout << "Enter the student selection:\n";
-                for(student listOfStudentsIteration : studentsVector){
-                    std::cout<<count<<". "<<listOfStudentsIteration.name<<'\n';
+                for (student listOfStudentsIteration: studentsVector) {
+                    std::cout << count << ". " << listOfStudentsIteration.name << '\n';
                     count++;
                 }
                 std::cout << "0. Cancel\n";
-                std::cin>>deleteSelection;
-                if(deleteSelection != 0)
-                {
+                std::cin >> deleteSelection;
+                if (deleteSelection != 0) {
                     outputTheInput(deleteSelection);
-                    studentsVector.erase(studentsVector.begin() + deleteSelection-1);
-                    std::cout<<"Student data has been deleted"<<std::endl;
-                    horizontalLine();
-                }
-                else
-                {
+                    studentsVector.erase(studentsVector.begin() + deleteSelection - 1);
+                    std::cout << "Student data has been deleted" << std::endl;
+                } else {
                     outputTheInput(deleteSelection);
-                    std::cout<<"Student deletion has been cancelled"<<std::endl;
-                    horizontalLine();
+                    std::cout << "Student deletion has been cancelled" << std::endl;
                 }
                 break;
             case 3:
-                std::cout<<"How would you like to list the students?"<<std::endl;
-                std::cout<<"1. Sorted by name (descending)\n"
-                           "2. Sorted by name (ascending)\n"
-                           "3. Sorted by ID (descending)\n"
-                           "4. Sorted by ID (ascending)\n"
-                           "5. Sorted by GPA (descending)\n"
-                           "6. Sorted by GPA (ascending)"<<std::endl;
-                std::cin>>sortSelection;
-                switch(sortSelection){
+                std::cout << "How would you like to list the students?" << std::endl;
+                std::cout << "1. Sorted by name (descending)\n"
+                             "2. Sorted by name (ascending)\n"
+                             "3. Sorted by ID (descending)\n"
+                             "4. Sorted by ID (ascending)\n"
+                             "5. Sorted by GPA (descending)\n"
+                             "6. Sorted by GPA (ascending)" << std::endl;
+                std::cin >> sortSelection;
+                switch (sortSelection) {
                     case 1:
                         outputTheInput(sortSelection);
                         temporaryStudentsVector = sortVectorZToA(studentsVector);
                         count = 1;
-                        for(student i : temporaryStudentsVector){
-                            std::cout<<count<<". "<<i.name<<" / "<<i.id<<" / "<<i.gpa<<'\n';
+                        for (student i: temporaryStudentsVector) {
+                            std::cout << count << ". " << i.name << " / " << i.id << " / " << i.gpa << '\n';
                             count++;
                         }
                         returnToMenu();
@@ -260,8 +270,8 @@ int main() {
                         outputTheInput(sortSelection);
                         temporaryStudentsVector = sortVectorAToZ(studentsVector);
                         count = 1;
-                        for(student i : temporaryStudentsVector){
-                            std::cout<<count<<". "<<i.name<<" / "<<i.id<<" / "<<i.gpa<<'\n';
+                        for (student i: temporaryStudentsVector) {
+                            std::cout << count << ". " << i.name << " / " << i.id << " / " << i.gpa << '\n';
                             count++;
                         }
                         returnToMenu();
@@ -270,8 +280,8 @@ int main() {
                         outputTheInput(sortSelection);
                         temporaryStudentsVector = sortVectorHighestIDValue(studentsVector);
                         count = 1;
-                        for(student i : temporaryStudentsVector){
-                            std::cout<<count<<". "<<i.id<<" / "<<i.name<<" / "<<i.gpa<<'\n';
+                        for (student i: temporaryStudentsVector) {
+                            std::cout << count << ". " << i.id << " / " << i.name << " / " << i.gpa << '\n';
                             count++;
                         }
                         returnToMenu();
@@ -280,8 +290,8 @@ int main() {
                         outputTheInput(sortSelection);
                         temporaryStudentsVector = sortVectorLowestIDValue(studentsVector);
                         count = 1;
-                        for(student i : temporaryStudentsVector){
-                            std::cout<<count<<". "<<i.id<<" / "<<i.name<<" / "<<i.gpa<<'\n';
+                        for (student i: temporaryStudentsVector) {
+                            std::cout << count << ". " << i.id << " / " << i.name << " / " << i.gpa << '\n';
                             count++;
                         }
                         returnToMenu();
@@ -290,8 +300,8 @@ int main() {
                         outputTheInput(sortSelection);
                         temporaryStudentsVector = sortVectorLowestGPAValue(studentsVector);
                         count = 1;
-                        for(student i : temporaryStudentsVector){
-                            std::cout<<count<<". "<<i.gpa<<" / "<<i.name<<" / "<<i.id<<'\n';
+                        for (student i: temporaryStudentsVector) {
+                            std::cout << count << ". " << i.gpa << " / " << i.name << " / " << i.id << '\n';
                             count++;
                         }
                         returnToMenu();
@@ -300,8 +310,8 @@ int main() {
                         outputTheInput(sortSelection);
                         temporaryStudentsVector = sortVectorHighestGPAValue(studentsVector);
                         count = 1;
-                        for(student i : temporaryStudentsVector){
-                            std::cout<<count<<". "<<i.gpa<<" / "<<i.name<<" / "<<i.id<<'\n';
+                        for (student i: temporaryStudentsVector) {
+                            std::cout << count << ". " << i.gpa << " / " << i.name << " / " << i.id << '\n';
                             count++;
                         }
                         returnToMenu();
@@ -312,6 +322,62 @@ int main() {
                 }
                 break;
             case 4:
+                std::cout << "What is the title of this task you would like to give to your students?\n";
+                std::getline(std::cin, taskTitle);
+                std::getline(std::cin, taskTitle);
+
+                std::cout << "Provide the description of the task:\n";
+                std::getline(std::cin, taskDescription);
+
+                std::cout << "Would you like to attach any file?\n1. Yes\n2. No\n";
+                while(taskDocumentSelectionValid) {
+                    std::cin >> taskDocumentSelection;
+                    if (taskDocumentSelection == 1) {
+                        std::cout << "How many files do you want to attach?\n";
+                        std::cin>>taskDocumentAmount;
+                        for(int i = 0 ; i < taskDocumentAmount ; i++){
+                            std::cout << "What is the name of file number "<<i+1<<'\n';
+                            std::cin >> taskDocument;
+                            taskDocumentVector.push_back(taskDocument);
+                        }
+                        taskDocumentSelectionValid = false;
+                    }
+                    else if (taskDocumentSelection == 2){
+                        taskDocument = "-";
+                        taskDocumentSelectionValid = false;
+                    }
+                    else{std::cout << "The value you just entered is beyond our instruction, please try again.\n";}
+                }
+                std::cout << "What is the deadline of this task? (hour from 0 -- 12)\n";
+                while(taskDeadlineValid){
+                    std::cin >> taskDeadline;
+                    if(taskDeadline < 13 && taskDeadline > 0){taskDeadlineValid = false;}
+                    else{
+                        std::cout << "The value you just entered is not a valid hour.\n";
+                    }
+                }
+                std::cout << "1. AM\n2. PM\n";
+                while (taskDeadlinePhaseValid){
+                    std::cin >> taskDeadlinePhaseSelection;
+                    if (taskDeadlinePhaseSelection == 1) {
+                        taskDeadlinePhase = "AM";
+                        taskDeadlinePhaseValid = false;
+                    }
+                    else if (taskDeadlinePhaseSelection == 2) {
+                        taskDeadlinePhase = "PM";
+                        taskDeadlinePhaseValid = false;
+                    }
+                    else { std::cout << "The value you just entered is beyond our instruction, please try again.\n"; }
+                }
+                horizontalLine();
+                std::cout<<"New task created\n";
+                horizontalLine();
+                std::cout<<"Title      : "<<capitalize(taskTitle)<<"\nDeadline   : "<<taskDeadline<<" "<<taskDeadlinePhase<<"\nDescription:\n";
+                printStringButWithBreaks(taskDescription);
+                std::cout<<"Attachment(s):\n";
+                for(int i = 0 ; i < taskDocumentVector.size() ; i++){
+                    std::cout<<"> "<<taskDocumentVector[i]<<'\n';
+                }
                 break;
             case 5:
                 break;
