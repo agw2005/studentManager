@@ -13,44 +13,6 @@ void printVector(std::vector<std::string> theVector){
     }
 }
 
-std::vector<student> sortVectorBiggestIDValue(std::vector<student> theVector) {
-    for (int i = 0; i < theVector.size() - 1; i++) {
-        for (int ii = i + 1; ii < theVector.size(); ii++) {
-            if (theVector[i].id < theVector[ii].id) {
-                long long int tempID = theVector[i].id;
-                std::string tempName = theVector[i].name;
-                float tempGPA = theVector[i].gpa;
-                theVector[i].id = theVector[ii].id;
-                theVector[i].name = theVector[ii].name;
-                theVector[i].gpa = theVector[ii].gpa;
-                theVector[ii].id = tempID;
-                theVector[ii].name = tempName;
-                theVector[ii].gpa = tempGPA;
-            }
-        }
-    }
-    return theVector;
-}
-
-std::vector<student> sortVectorLowestIDValue(std::vector<student> theVector) {
-    for (int i = 0; i < theVector.size() - 1; i++) {
-        for (int ii = i + 1; ii < theVector.size(); ii++) {
-            if (theVector[i].id > theVector[ii].id) {
-                long long int tempID = theVector[i].id;
-                std::string tempName = theVector[i].name;
-                float tempGPA = theVector[i].gpa;
-                theVector[i].id = theVector[ii].id;
-                theVector[i].name = theVector[ii].name;
-                theVector[i].gpa = theVector[ii].gpa;
-                theVector[ii].id = tempID;
-                theVector[ii].name = tempName;
-                theVector[ii].gpa = tempGPA;
-            }
-        }
-    }
-    return theVector;
-}
-
 std::vector<student> sortVectorZToA(std::vector<student> theVector) {
     for (int i = 0; i < theVector.size() - 1; i++) {
         for (int ii = i + 1; ii < theVector.size(); ii++) {
@@ -89,6 +51,82 @@ std::vector<student> sortVectorAToZ(std::vector<student> theVector) {
     return theVector;
 }
 
+std::vector<student> sortVectorHighestIDValue(std::vector<student> theVector) {
+    for (int i = 0; i < theVector.size() - 1; i++) {
+        for (int ii = i + 1; ii < theVector.size(); ii++) {
+            if (theVector[i].id < theVector[ii].id) {
+                long long int tempID = theVector[i].id;
+                std::string tempName = theVector[i].name;
+                float tempGPA = theVector[i].gpa;
+                theVector[i].id = theVector[ii].id;
+                theVector[i].name = theVector[ii].name;
+                theVector[i].gpa = theVector[ii].gpa;
+                theVector[ii].id = tempID;
+                theVector[ii].name = tempName;
+                theVector[ii].gpa = tempGPA;
+            }
+        }
+    }
+    return theVector;
+}
+
+std::vector<student> sortVectorLowestIDValue(std::vector<student> theVector) {
+    for (int i = 0; i < theVector.size() - 1; i++) {
+        for (int ii = i + 1; ii < theVector.size(); ii++) {
+            if (theVector[i].id > theVector[ii].id) {
+                long long int tempID = theVector[i].id;
+                std::string tempName = theVector[i].name;
+                float tempGPA = theVector[i].gpa;
+                theVector[i].id = theVector[ii].id;
+                theVector[i].name = theVector[ii].name;
+                theVector[i].gpa = theVector[ii].gpa;
+                theVector[ii].id = tempID;
+                theVector[ii].name = tempName;
+                theVector[ii].gpa = tempGPA;
+            }
+        }
+    }
+    return theVector;
+}
+
+std::vector<student> sortVectorHighestGPAValue(std::vector<student> theVector) {
+    for (int i = 0; i < theVector.size() - 1; i++) {
+        for (int ii = i + 1; ii < theVector.size(); ii++) {
+            if (theVector[i].gpa > theVector[ii].gpa) {
+                float tempGPA = theVector[i].gpa;
+                std::string tempName = theVector[i].name;
+                long long int tempID = theVector[i].id;
+                theVector[i].gpa = theVector[ii].gpa;
+                theVector[i].name = theVector[ii].name;
+                theVector[i].id = theVector[ii].id;
+                theVector[ii].gpa = tempGPA;
+                theVector[ii].name = tempName;
+                theVector[ii].id = tempID;
+            }
+        }
+    }
+    return theVector;
+}
+
+std::vector<student> sortVectorLowestGPAValue(std::vector<student> theVector) {
+    for (int i = 0; i < theVector.size() - 1; i++) {
+        for (int ii = i + 1; ii < theVector.size(); ii++) {
+            if (theVector[i].gpa < theVector[ii].gpa) {
+                long long int tempID = theVector[i].id;
+                std::string tempName = theVector[i].name;
+                float tempGPA = theVector[i].gpa;
+                theVector[i].id = theVector[ii].id;
+                theVector[i].name = theVector[ii].name;
+                theVector[i].gpa = theVector[ii].gpa;
+                theVector[ii].id = tempID;
+                theVector[ii].name = tempName;
+                theVector[ii].gpa = tempGPA;
+            }
+        }
+    }
+    return theVector;
+}
+
 std::string capitalize(std::string str) {
     std::string result;
     for (int i = 0; i < str.length(); i++) {
@@ -101,6 +139,29 @@ std::string capitalize(std::string str) {
     return result;
 }
 
+void horizontalLine(){
+    std::cout<<"----------------------------------------------------------------------------------------------------"<<std::endl;
+}
+
+void outputTheInput(int value){
+    horizontalLine();
+    std::cout<<"Input: "<<value<<'\n';
+    horizontalLine();
+}
+
+void returnToMenu(){
+    std::string listIsRunning;
+    horizontalLine();
+    std::cout<<"Enter any value to return to menu\n";
+    std::cin>>listIsRunning;
+}
+
+void startingMenu(std::vector<std::string> theMenu){
+    horizontalLine();
+    printVector(theMenu);
+    horizontalLine();
+}
+
 int main() {
     std::vector<std::string> menu = {
             "1. Add a student",
@@ -110,29 +171,24 @@ int main() {
             "5. Insert a grade",
             "6. Exit"
     };
+
     std::vector<student> studentsVector,temporaryStudentsVector;
     student temporary;
-    std::string horizontalLine = "----------------------------------------------------------------------------------------------------";
     int startingInput, count, deleteSelection, sortSelection;
-    std:: string listIsRunning;
     bool idLengthIsNotTen = true;
     bool gpaValueIsNotValid = true;
     bool programIsRunning = true;
 
-    std::cout << horizontalLine << std::endl;
+    horizontalLine();
     std::cout << "Good morning, welcome to the student data center" << std::endl;
     std::cout << "What would you like to do today?" << std::endl;
 
     while(programIsRunning) {
-        std::cout << horizontalLine << std::endl;
-        printVector(menu);
-        std::cout << horizontalLine << std::endl;
-        std::cin >> startingInput;
-        std::cout << horizontalLine << std::endl;
-        std::cout<<"Input: "<<startingInput<<std::endl;
+        startingMenu(menu);
+        std::cin>>startingInput;
+        outputTheInput(startingInput);
         switch (startingInput) {
             case 1:
-                std::cout << horizontalLine << std::endl;
                 std::cout << "Enter the name of the student:\n";
                 std::getline(std::cin,temporary.name);
                 std::getline(std::cin,temporary.name);
@@ -154,12 +210,11 @@ int main() {
                 }
                 gpaValueIsNotValid = true;
                 studentsVector.push_back(temporary);
-                std::cout << horizontalLine << std::endl;
+                horizontalLine();
                 std::cout<<"Student data has been added to the database"<<std::endl;
                 break;
             case 2:
                 count = 1;
-                std::cout << horizontalLine << std::endl;
                 std::cout << "Enter the student selection:\n";
                 for(student listOfStudentsIteration : studentsVector){
                     std::cout<<count<<". "<<listOfStudentsIteration.name<<'\n';
@@ -167,11 +222,10 @@ int main() {
                 }
                 std::cin>>deleteSelection;
                 studentsVector.erase(studentsVector.begin() + deleteSelection-1);
-                std::cout << horizontalLine << std::endl;
+                horizontalLine();
                 std::cout<<"Student data has been deleted"<<std::endl;
                 break;
             case 3:
-                std::cout << horizontalLine << std::endl;
                 std::cout<<"How would you like to list the students?"<<std::endl;
                 std::cout<<"1. Sorted by name (descending)\n"
                            "2. Sorted by name (ascending)\n"
@@ -182,64 +236,64 @@ int main() {
                 std::cin>>sortSelection;
                 switch(sortSelection){
                     case 1:
-                        std::cout << horizontalLine << std::endl;
-                        std::cout<<"Input: "<<sortSelection<<std::endl;
-                        std::cout << horizontalLine << std::endl;
+                        outputTheInput(sortSelection);
                         temporaryStudentsVector = sortVectorZToA(studentsVector);
                         count = 1;
                         for(student i : temporaryStudentsVector){
                             std::cout<<count<<". "<<i.name<<" / "<<i.id<<" / "<<i.gpa<<'\n';
                             count++;
                         }
-                        std::cout << horizontalLine << std::endl;
-                        std::cout<<"Enter any value to return to menu\n";
-                        std::cin>>listIsRunning;
+                        returnToMenu();
                         break;
                     case 2:
-                        std::cout << horizontalLine << std::endl;
-                        std::cout<<"Input: "<<sortSelection<<std::endl;
-                        std::cout << horizontalLine << std::endl;
+                        outputTheInput(sortSelection);
                         temporaryStudentsVector = sortVectorAToZ(studentsVector);
                         count = 1;
                         for(student i : temporaryStudentsVector){
                             std::cout<<count<<". "<<i.name<<" / "<<i.id<<" / "<<i.gpa<<'\n';
                             count++;
                         }
-                        std::cout << horizontalLine << std::endl;
-                        std::cout<<"Enter any value to return to menu\n";
-                        std::cin>>listIsRunning;
+                        returnToMenu();
                         break;
                     case 3:
-                        std::cout << horizontalLine << std::endl;
-                        std::cout<<"Input: "<<sortSelection<<std::endl;
-                        std::cout << horizontalLine << std::endl;
-                        temporaryStudentsVector = sortVectorBiggestIDValue(studentsVector);
+                        outputTheInput(sortSelection);
+                        temporaryStudentsVector = sortVectorHighestIDValue(studentsVector);
                         count = 1;
                         for(student i : temporaryStudentsVector){
                             std::cout<<count<<". "<<i.id<<" / "<<i.name<<" / "<<i.gpa<<'\n';
                             count++;
                         }
-                        std::cout << horizontalLine << std::endl;
-                        std::cout<<"Enter any value to return to menu\n";
-                        std::cin>>listIsRunning;
+                        returnToMenu();
                         break;
                     case 4:
-                        std::cout << horizontalLine << std::endl;
-                        std::cout<<"Input: "<<sortSelection<<std::endl;
-                        std::cout << horizontalLine << std::endl;
+                        outputTheInput(sortSelection);
                         temporaryStudentsVector = sortVectorLowestIDValue(studentsVector);
                         count = 1;
                         for(student i : temporaryStudentsVector){
                             std::cout<<count<<". "<<i.id<<" / "<<i.name<<" / "<<i.gpa<<'\n';
                             count++;
                         }
-                        std::cout << horizontalLine << std::endl;
-                        std::cout<<"Enter any value to return to menu\n";
-                        std::cin>>listIsRunning;
+                        returnToMenu();
                         break;
                     case 5:
+                        outputTheInput(sortSelection);
+                        temporaryStudentsVector = sortVectorLowestGPAValue(studentsVector);
+                        count = 1;
+                        for(student i : temporaryStudentsVector){
+                            std::cout<<count<<". "<<i.gpa<<" / "<<i.name<<" / "<<i.id<<'\n';
+                            count++;
+                        }
+                        returnToMenu();
                         break;
                     case 6:
+                        outputTheInput(sortSelection);
+                        temporaryStudentsVector = sortVectorHighestGPAValue(studentsVector);
+                        count = 1;
+                        for(student i : temporaryStudentsVector){
+                            std::cout<<count<<". "<<i.gpa<<" / "<<i.name<<" / "<<i.id<<'\n';
+                            count++;
+                        }
+                        returnToMenu();
                         break;
                     default:
                         std::cout << "The value you just entered is beyond our instruction, please try again.\n";
