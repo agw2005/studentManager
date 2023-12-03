@@ -172,6 +172,32 @@ void printStringButWithBreaks(std::string theString){
     std::cout<<'\n';
 }
 
+void printUnsortedVector(std::vector<student> theVectorOfStudents){
+    for(int count = 0 ; count < theVectorOfStudents.size() ; count++){
+        std::cout<< count+1 << ". " << theVectorOfStudents[count].name<<" ("<<theVectorOfStudents[count].id<<")\n" ;
+    }
+}
+
+//    case 2:
+//      count = 1;
+//      std::cout << "Enter the student selection:\n";
+//      for (const student& listOfStudentsIteration: studentsVector) {
+//          std::cout << count << ". " << listOfStudentsIteration.name << '\n';
+//          count++;
+//      }
+//      std::cout << "0. Cancel\n";
+//      std::cin >> deleteSelection;
+//      if (deleteSelection != 0) {
+//          outputTheInput(deleteSelection);
+//          studentsVector.erase(studentsVector.begin() + deleteSelection - 1);
+//          std::cout << "Student data has been deleted" << std::endl;
+//      }
+//      else {
+//          outputTheInput(deleteSelection);
+//          std::cout << "Student deletion has been cancelled" << std::endl;
+//      }
+//      break;
+
 int main() {
     std::vector<std::string> menu = {
             "1. Add a student",
@@ -302,10 +328,7 @@ int main() {
             case 2:
                 count = 1;
                 std::cout << "Enter the student selection:\n";
-                for (const student& listOfStudentsIteration: studentsVector) {
-                    std::cout << count << ". " << listOfStudentsIteration.name << '\n';
-                    count++;
-                }
+                printUnsortedVector(studentsVector);
                 std::cout << "0. Cancel\n";
                 std::cin >> deleteSelection;
                 if (deleteSelection != 0) {
@@ -453,10 +476,7 @@ int main() {
             case 5:
                 count = 1;
                 std::cout << "Which students will receive a grade?\n";
-                for (student listOfStudentsIteration : studentsVector) {
-                    std::cout << count << ". " << listOfStudentsIteration.name << '\n';
-                    count++;
-                }
+                printUnsortedVector(studentsVector);
                 std::cout << "0. Cancel\n";
                 std::cin>>gradingSelection;
                 if (gradingSelection != 0) {
