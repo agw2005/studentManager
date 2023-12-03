@@ -238,7 +238,9 @@ int main() {
                 //Now, without the code below, if the code above it were to detect that a student have the same name,-
                 //-it will ask the user for input (name) twice instead of once (std::getline is weird).
                 //So my solution is to use getline twice at first, but if it detects a student of the same name,-
-                //then it will only use getline once, fixing the "ask for input twice" problem.
+                //then the iteration increase and will only use getline once, fixing the "ask for input twice" problem.
+                //And of course, the iteration resets when the student is added, so that future addition can have the
+                //same effect.
                 while(studentIsValid && iterationStudentNaming != 0) {
                     std::cout << "Enter the name of the student:\n";
                     std::getline(std::cin, temporary.name);
@@ -300,7 +302,7 @@ int main() {
             case 2:
                 count = 1;
                 std::cout << "Enter the student selection:\n";
-                for (student listOfStudentsIteration: studentsVector) {
+                for (const student& listOfStudentsIteration: studentsVector) {
                     std::cout << count << ". " << listOfStudentsIteration.name << '\n';
                     count++;
                 }
