@@ -186,7 +186,16 @@ int main() {
     std::vector<std::string> taskDocumentVector;
     student temporary;
     std::string taskTitle, taskDescription, taskDocument, taskDeadlinePhase;
-    int startingInput, count, deleteSelection, sortSelection, taskDeadline, taskDeadlinePhaseSelection, taskDocumentSelection, taskDocumentAmount;
+    float newGrade;
+    int startingInput,
+    count,
+    deleteSelection,
+    sortSelection,
+    taskDeadline,
+    taskDeadlinePhaseSelection,
+    taskDocumentSelection,
+    taskDocumentAmount,
+    gradingSelection;
     bool idLengthIsNotTen = true;
     bool gpaValueIsNotValid = true;
     bool programIsRunning = true;
@@ -380,6 +389,27 @@ int main() {
                 }
                 break;
             case 5:
+                count = 1;
+                std::cout << "Which students will receive a grade?\n";
+                for (student listOfStudentsIteration : studentsVector) {
+                    std::cout << count << ". " << listOfStudentsIteration.name << '\n';
+                    count++;
+                }
+                std::cout << "0. Cancel\n";
+                std::cin>>gradingSelection;
+                if (gradingSelection != 0) {
+                    outputTheInput(gradingSelection);
+                    std::cout<<"What is the value of the grade?\n";
+                    std::cin>>newGrade;
+                    studentsVector[gradingSelection-1].gpa += newGrade;
+                    studentsVector[gradingSelection-1].gpa /= 2.0;
+                    horizontalLine();
+                    std::cout << "Student successfully has received the grade!" << std::endl;
+                    std::cout<<studentsVector[gradingSelection-1].name<<" - GPA: "<<studentsVector[gradingSelection-1].gpa<<'\n';
+                } else {
+                    outputTheInput(gradingSelection);
+                    std::cout << "Grading has been cancelled" << std::endl;
+                }
                 break;
             case 6:
                 programIsRunning = false;
