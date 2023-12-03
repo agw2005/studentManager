@@ -188,7 +188,7 @@ int main() {
     std::string taskTitle, taskDescription, taskDocument, taskDeadlinePhase;
     float newGrade;
     int startingInput,
-    count,
+    count, iterationStudentNaming,
     deleteSelection,
     sortSelection,
     taskDeadline,
@@ -202,6 +202,7 @@ int main() {
     bool taskDeadlinePhaseValid = true;
     bool taskDeadlineValid = true;
     bool taskDocumentSelectionValid = true;
+    bool studentIsValid = true;
 
     horizontalLine();
     std::cout << "Good morning, welcome to the student data center" << std::endl;
@@ -213,18 +214,67 @@ int main() {
         outputTheInput(startingInput);
         switch (startingInput) {
             case 1:
+                iterationStudentNaming = 0;
                 std::cout << "Enter the name of the student:\n";
                 std::getline(std::cin, temporary.name);
                 std::getline(std::cin, temporary.name);
                 temporary.name = capitalize(temporary.name);
-                while (idLengthIsNotTen) {
-                    std::cout << "Enter the student ID:\n";
-                    std::cin >> temporary.id;
-                    if ((int) (std::to_string(temporary.id)).length() == 10) {
-                        idLengthIsNotTen = false;
-                    } else { std::cout << "The student ID you just entered is not a valid ID, please try again.\n"; }
+                if(studentsVector.size() != 0) {
+                    for (int i = 0; i < studentsVector.size(); i++) {
+                        if (studentsVector[i].name == temporary.name) {
+                            horizontalLine();
+                            std::cout << "The student by that name already exist! Please try again.\n";
+                            horizontalLine();
+                            iterationStudentNaming++;
+                        } else { studentIsValid = false; }
+                    }
                 }
-                idLengthIsNotTen = true;
+                else{
+                    studentIsValid = false;
+                }
+                while(studentIsValid && iterationStudentNaming != 0) {
+                    std::cout << "Enter the name of the student:\n";
+                    std::getline(std::cin, temporary.name);
+                    temporary.name = capitalize(temporary.name);
+                    if(studentsVector.size() != 0) {
+                        for (int i = 0; i < studentsVector.size(); i++) {
+                            if (studentsVector[i].name == temporary.name) {
+                                horizontalLine();
+                                std::cout << "The student by that name already exist! Please try again.\n";
+                                horizontalLine();
+                            } else { studentIsValid = false; }
+                        }
+                    }
+                    else{
+                        studentIsValid = false;
+                    }
+                }
+                studentIsValid = true;
+                while(studentIsValid){
+                    while (idLengthIsNotTen) {
+                        std::cout << "Enter the student ID:\n";
+                        std::cin >> temporary.id;
+                        if ((int) (std::to_string(temporary.id)).length() == 10) {
+                            idLengthIsNotTen = false;
+                        } else {
+                            std::cout << "The student ID you just entered is not a valid ID, please try again.\n";
+                        }
+                    }
+                    idLengthIsNotTen = true;
+                    if(studentsVector.size() != 0) {
+                        for (int i = 0; i < studentsVector.size(); i++) {
+                            if (studentsVector[i].id == temporary.id) {
+                                horizontalLine();
+                                std::cout << "The student by that ID already exist! Please try again.\n";
+                                horizontalLine();
+                            } else { studentIsValid = false; }
+                        }
+                    }
+                    else{
+                        studentIsValid = false;
+                    }
+                }
+                studentIsValid = true;
                 while (gpaValueIsNotValid) {
                     std::cout << "Enter the starting GPA of this student:\n";
                     std::cin >> temporary.gpa;
