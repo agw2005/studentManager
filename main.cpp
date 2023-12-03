@@ -214,11 +214,14 @@ int main() {
         outputTheInput(startingInput);
         switch (startingInput) {
             case 1:
-                iterationStudentNaming = 0;
+                iterationStudentNaming = 0; //This will make sense below
                 std::cout << "Enter the name of the student:\n";
                 std::getline(std::cin, temporary.name);
                 std::getline(std::cin, temporary.name);
                 temporary.name = capitalize(temporary.name);
+                //Allow user to input a name (with spaces)
+                //The 'if' below will check if there are students of the same name-
+                //-but only works if there is already a student in the database
                 if(studentsVector.size() != 0) {
                     for (int i = 0; i < studentsVector.size(); i++) {
                         if (studentsVector[i].name == temporary.name) {
@@ -232,6 +235,10 @@ int main() {
                 else{
                     studentIsValid = false;
                 }
+                //Now, without the code below, if the code above it were to detect that a student have the same name,-
+                //-it will ask the user for input (name) twice instead of once (std::getline is weird).
+                //So my solution is to use getline twice at first, but if it detects a student of the same name,-
+                //then it will only use getline once, fixing the "ask for input twice" problem.
                 while(studentIsValid && iterationStudentNaming != 0) {
                     std::cout << "Enter the name of the student:\n";
                     std::getline(std::cin, temporary.name);
@@ -250,6 +257,8 @@ int main() {
                     }
                 }
                 studentIsValid = true;
+                //same thing with ID as with names, but this time it does not use getline, instead it uses cin.
+                //Which is why it does not need a complex iteration like the one with the student name.
                 while(studentIsValid){
                     while (idLengthIsNotTen) {
                         std::cout << "Enter the student ID:\n";
@@ -275,6 +284,7 @@ int main() {
                     }
                 }
                 studentIsValid = true;
+                //No need to check if a student have the same GPA.
                 while (gpaValueIsNotValid) {
                     std::cout << "Enter the starting GPA of this student:\n";
                     std::cin >> temporary.gpa;
