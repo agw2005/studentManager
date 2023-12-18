@@ -178,26 +178,6 @@ void printUnsortedVector(std::vector<student> theVectorOfStudents){
     }
 }
 
-//    case 2:
-//      count = 1;
-//      std::cout << "Enter the student selection:\n";
-//      for (const student& listOfStudentsIteration: studentsVector) {
-//          std::cout << count << ". " << listOfStudentsIteration.name << '\n';
-//          count++;
-//      }
-//      std::cout << "0. Cancel\n";
-//      std::cin >> deleteSelection;
-//      if (deleteSelection != 0) {
-//          outputTheInput(deleteSelection);
-//          studentsVector.erase(studentsVector.begin() + deleteSelection - 1);
-//          std::cout << "Student data has been deleted" << std::endl;
-//      }
-//      else {
-//          outputTheInput(deleteSelection);
-//          std::cout << "Student deletion has been cancelled" << std::endl;
-//      }
-//      break;
-
 int main() {
     std::vector<std::string> menu = {
             "1. Add a student",
@@ -442,7 +422,7 @@ int main() {
                     }
                     else{std::cout << "The value you just entered is beyond our instruction, please try again.\n";}
                 }
-                std::cout << "What is the deadline of this task? (hour from 0 -- 12)\n";
+                std::cout << "What is the deadline of this task? (hour from 1 -- 12)\n";
                 while(taskDeadlineValid){
                     std::cin >> taskDeadline;
                     if(taskDeadline < 13 && taskDeadline > 0){taskDeadlineValid = false;}
